@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.httr-oauth
+
+# ignore folders 
+Inter_Data/
+Input_Data/
+Output_Data/
