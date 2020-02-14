@@ -106,6 +106,18 @@ mget(ls(pattern = '*_new')) %>%
   dn07_combined_7_sheets
 
 
+# THIS IS AN ALTERNATIVE (BETTER) WAY to FIND CORRECT SEQUECES
+mget(ls(pattern = '*_new')) %>%
+  # remove watershed data from the list
+  .[names(.) != 'ws_new'] %>%
+  bind_rows() %>%
+  mutate(COMMENTS = paste(Present80s, Present2010, Present2016, sep ='') %>%
+           str_replace_all('NA', '0') %>% 
+           strtoi(2)) %>%
+  mutate(SHAPE_Length = ifelse(COMMENTS %in% (2^(0:3)-1), 'good', 'bad'))
+  
+
+
 # save data
 ws_new %>% 
   mutate(huc12_id = paste('huc', huc12_id, sep = '-')) %>%
