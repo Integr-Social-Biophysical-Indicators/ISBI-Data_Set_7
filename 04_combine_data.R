@@ -1,4 +1,5 @@
 # Load the main packages
+library(readxl)
 library(tidyverse)
 library(lubridate)
 library(googledrive)
@@ -32,9 +33,9 @@ column_select <- function(SPN, KR = 'keep') {
     filter(keep_rm == KR & spreadsheet_name == SPN) %>%
     pull(variable_name) -> column_names
   return(column_names)
-  }
+}
 
-  
+
 # Watershed 
 ws %>% 
   select(column_select('Watershed')) ->
@@ -115,7 +116,7 @@ mget(ls(pattern = '*_new')) %>%
            str_replace_all('NA', '0') %>% 
            strtoi(2)) %>%
   mutate(SHAPE_Length = ifelse(COMMENTS %in% (2^(0:3)-1), 'good', 'bad'))
-  
+
 
 
 # save data
@@ -126,6 +127,6 @@ ws_new %>%
 dn07_combined_7_sheets %>%
   mutate(huc12_id = paste('huc', huc12_id, sep = '-')) %>%
   write_csv('Output_Data/dn07.csv', na = 'n/a')
-  
 
-  
+
+
