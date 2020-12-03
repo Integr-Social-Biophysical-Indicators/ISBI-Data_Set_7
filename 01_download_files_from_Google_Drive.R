@@ -4,6 +4,25 @@ library(googledrive)
 
 
 
+# NEW FILES (Updated in 2020-11-24)
+# store the URL you have
+folder_url <- "1aW8H5BjfYRwq3B5bMPHu0noNBf51NBd4"
+
+
+# list all files in the folder
+files <- drive_ls(as_id(folder_url))
+
+
+# download them
+walk2(files$id, 
+      files$name, 
+      ~ drive_download(as_id(.x),
+                       path = paste0('Input_Data/Exported_from_BMP_2020.11.24/', .y),
+                       overwrite = TRUE))
+
+
+
+# OLD FILES
 # store the URL you have
 folder_url <- "https://drive.google.com/drive/u/1/folders/1UEgbfd7nAhfSvBzwIevM9--l5ZVeJirp"
 
@@ -41,3 +60,6 @@ csv_files %>%
          file_name = name,
          file_id = id) %>%
   write_csv('Input_Data/file_keys.txt')
+
+
+
